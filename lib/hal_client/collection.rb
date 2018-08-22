@@ -35,7 +35,7 @@ class HalClient
 
       total = 0
       each_page do |p|
-        total += p.related("item").count
+        total += p.related("self").count
       end
 
       total
@@ -47,7 +47,7 @@ class HalClient
     # Yields the next item of the iteration.
     def each(&blk)
       each_page do |a_page|
-        a_page.related("item").each(&blk) if a_page.related?("item")
+        a_page.related("self").each(&blk) if a_page.related?("self")
       end
     end
 
@@ -57,7 +57,7 @@ class HalClient
     # count - number of items to return. If specified return type will
     #   an collection. Default: return a single item
     def sample(*arg)
-      first_page.related("item").sample(*arg)
+      first_page.related("self").sample(*arg)
     end
 
     protected
